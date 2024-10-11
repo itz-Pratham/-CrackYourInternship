@@ -1,11 +1,21 @@
 class Solution {
 public:
     string intToRoman(int num) {
-        string ones_place[] = {"","I","II","III","IV","V","VI","VII","VIII","IX"};
-        string tens_place[] = {"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"};
-        string hrns_place[] = {"","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"};
-        string ths_place[]={"","M","MM","MMM"};
-        
-        return ths_place[num/1000] + hrns_place[(num%1000)/100] + tens_place[(num%100)/10] + ones_place[num%10];
+
+        vector<int> val{1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        vector<string> symbol{"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        string ans = "";
+
+        for(int i=0;i<13;i++){
+            if(num == 0) break;
+
+            int times = num/val[i];
+            while(times--){
+                ans+=symbol[i];
+            }
+            num = num%val[i];
+        }
+
+        return ans;
     }
 };
